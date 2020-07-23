@@ -34,4 +34,15 @@ public class RollerAgent : Agent
                                            0.5f,
                                            Random.value * 8 - 4);
     }
+
+    public override void CollectObservations(VectorSensor sensor)
+    {
+        // Target and Agent positions
+        sensor.AddObservation(Target.localPosition);
+        sensor.AddObservation(this.transform.localPosition);
+
+        // Agent velocity
+        sensor.AddObservation(rigidBody.velocity.x);
+        sensor.AddObservation(rigidBody.velocity.z);
+    }
 }
