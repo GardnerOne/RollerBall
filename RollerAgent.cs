@@ -48,7 +48,7 @@ public class RollerAgent : Agent
         // Actions, size = 2
         Vector3 controlSignal = Vector3.zero;
         controlSignal.x = vectorAction[0];
-        controlSignal.y = vectorAction[1];
+        controlSignal.z = vectorAction[1];
         rigidBody.AddForce(controlSignal * forceMultiplier);
 
         // Rewards
@@ -69,9 +69,5 @@ public class RollerAgent : Agent
         }
     }
 
-    public override void Heuristic(float[] actionsOut)
-    {
-        actionsOut[0] = Input.GetAxis("Horizontal");
-        actionsOut[1] = Input.GetAxis("Vertical");
-    }
+    
 }
