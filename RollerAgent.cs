@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Specialized;
-using System.Numerics;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 
 public class RollerAgent : Agent
 {
-    RigidBody rigidBody;
+    Rigidbody rigidBody;
 
     // Start is called before the first frame update
     void Start()
     {
-        rigidBody = GetComponent<RigidBody>();
+        rigidBody = GetComponent<Rigidbody>();
     }
 
     public Transform Target;
@@ -71,5 +67,11 @@ public class RollerAgent : Agent
         {
             EndEpisode();
         }
+    }
+
+    public override void Heuristic(float[] actionsOut)
+    {
+        actionsOut[0] = Input.GetAxis("Horizontal");
+        actionsOut[1] = Input.GetAxis("Vertical");
     }
 }
