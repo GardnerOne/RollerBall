@@ -45,4 +45,31 @@ public class RollerAgent : Agent
         sensor.AddObservation(rigidBody.velocity.x);
         sensor.AddObservation(rigidBody.velocity.z);
     }
+
+    public float forceMultiplier = 10;
+    public override void OnActionReceived(float[] vectorAction)
+    {
+        // Actions, size = 2
+        Vector3 controlSignal = Vector3.zero;
+        controlSignal.x = vectorAction[0];
+        controlSignal.y = vectorAction[1];
+        rigidBody.AddForce(controlSignal * forceMultiplier);
+
+        // Rewards
+
+        float distanceToTarget = Vector3.Distance(this.transform.localPosition, Target.localPosition);
+
+        // Reached target
+        if (distanceToTarget < 1.42f)
+        {
+            SetReward(1.0f);
+            EndEpisode();
+        }
+
+        // Fell off platform
+        if (this.transform.localPosition.y < 0)
+        {
+            EndEpisode();
+        }
+    }
 }
